@@ -1,20 +1,28 @@
 #pragma once
 /*
-  Реализуйте класс
+  «Иерархическое дерево узлов с shared_ptr/weak_ptr»
+
+
+Вам нужно реализовать класс Node, который представляет узел в древовидной
+структуре:
 
 struct Node : std::enable_shared_from_this<Node> {
-    std::string name;
-    std::vector<std::shared_ptr<Node>> children;
-    std::weak_ptr<Node> parent;
+    std::string name;                                // имя узла
+    std::vector<std::shared_ptr<Node>> children;     // список потомков
+    std::weak_ptr<Node> parent;                      // ссылка на родителя
 
-    explicit Node(std::string name);
+    explicit Node(std::string name);                 // конструктор
 
-    // Создает узел-потомок и устанавливает его parent
     std::shared_ptr<Node> addChild(const std::string& child_name);
+    // создаёт узел-потомок с именем child_name,
+    // автоматически устанавливает его parent,
+    // возвращает shared_ptr на нового потомка.
 
-    // Возвращает глубину в дереве (root = 0)
     int depth() const;
+    // вычисляет «глубину» узла в дереве:
+    // root.depth()==0, потомки root.depth()==1, и т.д.
 };
+
 
 В main():
 Постройте такое дерево:
@@ -26,8 +34,8 @@ root
      ├─ grandchild2a
      └─ grandchild2b
 
-Напишите рекурсивную функцию printTree(node, indent), которая выводит на экран
-имя узла с отступом, равным его depth().
+При вызове printTree(root); она должна вывести каждое имя узла на новой строке,
+предваряя его 2×depth пробелами (или любым другим читаемым отступом).
 
 Продемонстрируйте:
 Вывод всего дерева.

@@ -44,7 +44,7 @@ int main() {
                "  R w h    -- прямоугольник\n"
                "  C r      -- круг\n"
                "  T a b c  -- треугольник\n"
-               "Ctrl+D (Linux/macOS) или Ctrl+Z (Windows) для конца ввода\n\n";
+               "Нажмите X для конца ввода\n\n";
 
   while (std::cin >> type) {
     if (type == 'R') {
@@ -59,6 +59,8 @@ int main() {
       double a, b, c;
       if (std::cin >> a >> b >> c)
         shapes.emplace_back(std::make_unique<Tri>(a, b, c));
+    } else if (type == 'X') {
+      break;
     } else {
       std::cerr << "Неизвестный код фигуры: " << type << "\n";
       // пропустим строку до конца
